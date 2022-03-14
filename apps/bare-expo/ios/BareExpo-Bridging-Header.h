@@ -14,12 +14,6 @@
 #import <React/RCTBridgeDelegate.h>
 #import <React/RCTLinkingManager.h>
 
-// Expo modules
-
-#import <ExpoModulesCore/EXModuleRegistry.h>
-#import <ExpoModulesCore/EXNativeModulesProxy.h>
-#import <ExpoModulesCore/EXModuleRegistryAdapter.h>
-
 // OTA Updates
 
 //#import <EXUpdates/EXUpdatesAppController.h>

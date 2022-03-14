@@ -35,7 +35,12 @@ Pod::Spec.new do |s|
   end
 
   s.exclude_files = 'Tests/'
-  s.private_header_files = ['**/*+Private.h', '**/Swift.h']
+  s.private_header_files = [
+    '**/*+Private.h',
+    '**/Swift.h',
+    '{ModuleRegistryAdapter,NativeModulesProxy,ViewManagerAdapter}/**',
+    'Services/EXReact*.h',
+  ]
 
   s.test_spec 'Tests' do |test_spec|
     test_spec.dependency 'Quick'
