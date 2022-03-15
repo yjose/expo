@@ -46,8 +46,8 @@ async function main(packageNames: string[], options: ActionOptions) {
     const xcodeProject = await generateXcodeProjectSpecAsync(pkg);
 
     if (!options.generateSpecs) {
-      await buildFrameworksForProjectAsync(xcodeProject);
-      await cleanTemporaryFilesAsync(xcodeProject);
+      await buildFrameworksForProjectAsync(pkg, xcodeProject);
+      await cleanTemporaryFilesAsync(pkg, xcodeProject);
     }
 
     const endTime = performance.now();

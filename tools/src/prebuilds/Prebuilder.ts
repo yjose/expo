@@ -1,24 +1,26 @@
-import path from 'path';
-import fs from 'fs-extra';
 import chalk from 'chalk';
+import fs from 'fs-extra';
 import glob from 'glob-promise';
+import path from 'path';
 
+import { IOS_DIR } from '../Constants';
 import logger from '../Logger';
-import XcodeProject from './XcodeProject';
+import { Package } from '../Packages';
+import * as ExpoModulesCorePrebuilder from './ExpoModulesCorePrebuilder';
 import {
   createSpecFromPodspecAsync,
   generateXcodeProjectAsync,
   INFO_PLIST_FILENAME,
 } from './XcodeGen';
+import XcodeProject from './XcodeProject';
 import { Flavor, Framework, XcodebuildSettings } from './XcodeProject.types';
-import { Package } from '../Packages';
-import { IOS_DIR } from '../Constants';
 
 const PODS_DIR = path.join(IOS_DIR, 'Pods');
 
 // We will be increasing this list slowly. Once all are enabled,
 // find a better way to ignore some packages that shouldn't be prebuilt (like interfaces).
 export const PACKAGES_TO_PREBUILD = [
+  'expo-modules-core',
   // 'expo-ads-admob',
   // 'expo-ads-facebook',
   // 'expo-analytics-amplitude',
@@ -97,12 +99,13 @@ export async function prebuildPackageAsync(
 ): Promise<void> {
   if (canPrebuildPackage(pkg)) {
     const xcodeProject = await generateXcodeProjectSpecAsync(pkg);
-    await buildFrameworksForProjectAsync(xcodeProject, settings);
-    await cleanTemporaryFilesAsync(xcodeProject);
+    await buildFrameworksForProjectAsync(pkg, xcodeProject, settings);
+    await cleanTemporaryFilesAsync(pkg, xcodeProject);
   }
 }
 
 export async function buildFrameworksForProjectAsync(
+  pkg: Package,
   xcodeProject: XcodeProject,
   settings?: XcodebuildSettings
 ) {
@@ -121,11 +124,15 @@ export async function buildFrameworksForProjectAsync(
 
   // Builds frameworks from flavors.
   const frameworks: Framework[] = [];
+  const functor = ExpoModulesCorePrebuilder.isExpoModulesCore(pkg)
+    ? (...args: Parameters<XcodeProject['buildFrameworkAsync']>) =>
+        ExpoModulesCorePrebuilder.buildFrameworkAsync(xcodeProject, ...args)
+    : xcodeProject.buildFrameworkAsync;
   for (const flavor of flavors) {
     logger.log('   Building framework for %s', chalk.yellow(flavor.sdk));
 
     frameworks.push(
-      await xcodeProject.buildFrameworkAsync(xcodeProject.name, flavor, {
+      await functor(xcodeProject.name, flavor, {
         ONLY_ACTIVE_ARCH: false,
         BITCODE_GENERATION_MODE: 'bitcode',
         BUILD_LIBRARY_FOR_DISTRIBUTION: true,
@@ -155,7 +162,7 @@ export async function buildFrameworksForProjectAsync(
 /**
  * Removes all temporary files that we generated in order to create `.xcframework` file.
  */
-export async function cleanTemporaryFilesAsync(xcodeProject: XcodeProject) {
+export async function cleanTemporaryFilesAsync(pkg: Package, xcodeProject: XcodeProject) {
   logger.log('   Cleaning up temporary files');
 
   const pathsToRemove = [`${xcodeProject.name}.xcodeproj`, INFO_PLIST_FILENAME];
@@ -163,6 +170,10 @@ export async function cleanTemporaryFilesAsync(xcodeProject: XcodeProject) {
   await Promise.all(
     pathsToRemove.map((pathToRemove) => fs.remove(path.join(xcodeProject.rootDir, pathToRemove)))
   );
+
+  if (ExpoModulesCorePrebuilder.isExpoModulesCore(pkg)) {
+    await ExpoModulesCorePrebuilder.cleanTemporaryFilesAsync(xcodeProject);
+  }
 }
 
 /**
@@ -190,10 +201,11 @@ export async function generateXcodeProjectSpecAsync(pkg: Package): Promise<Xcode
     return null;
   });
 
-  const xcodeprojPath = await generateXcodeProjectAsync(
-    path.join(pkg.path, pkg.iosSubdirectory),
-    spec
-  );
+  const functor = ExpoModulesCorePrebuilder.isExpoModulesCore(pkg)
+    ? ExpoModulesCorePrebuilder.generateXcodeProjectAsync
+    : generateXcodeProjectAsync;
+  const xcodeprojPath = await functor(path.join(pkg.path, pkg.iosSubdirectory), spec);
+
   return await XcodeProject.fromXcodeprojPathAsync(xcodeprojPath);
 }
 
