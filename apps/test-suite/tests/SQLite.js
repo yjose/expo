@@ -455,4 +455,48 @@ export function test(t) {
       });
     }
   });
+
+  if (Platform.OS !== 'web') {
+    t.describe('SQLiteAsync', () => {
+      t.it('should support async transaction', async () => {
+        const db = SQLite.openDatabase('test.db');
+
+        // create table
+        await db.transactionAsync(async (tx) => {
+          await tx.executeSqlAsync('DROP TABLE IF EXISTS Users;', []);
+          await tx.executeSqlAsync(
+            'CREATE TABLE IF NOT EXISTS Users (user_id INTEGER PRIMARY KEY NOT NULL, name VARCHAR(64));',
+            []
+          );
+        });
+
+        // fetch data from network
+        async function fakeUserFetcher(userID) {
+          switch (userID) {
+            case 1: {
+              return Promise.resolve('Tim Duncan');
+            }
+            case 2: {
+              return Promise.resolve('Manu Ginobili');
+            }
+            case 3: {
+              return Promise.resolve('Nikhilesh Sigatapu');
+            }
+            default: {
+              return null;
+            }
+          }
+        }
+
+        const userName = await fakeUserFetcher(1);
+        await db.transactionAsync(async (tx) => {
+          await tx.executeSqlAsync('INSERT INTO Users (name) VALUES (?)', [userName]);
+
+          const currentUser = (await tx.executeSqlAsync('SELECT * FROM Users LIMIT 1')).rows[0]
+            .name;
+          t.expect(currentUser).toEqual('Tim Duncan');
+        });
+      });
+    });
+  }
 }

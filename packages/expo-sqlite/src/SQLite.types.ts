@@ -180,3 +180,14 @@ export type SQLiteCallback = (
   error?: Error | null,
   resultSet?: (ResultSetError | ResultSet)[]
 ) => void;
+
+// SQLite Async
+
+// @docsMissing
+export interface SQLTransactionAsync {
+  // @docsMissing
+  executeSqlAsync(sqlStatement: string, args?: (number | string)[]): Promise<ResultSet>;
+}
+
+// @docsMissing
+export type SQLTransactionAsyncCallback = (transaction: SQLTransactionAsync) => Promise<void>;

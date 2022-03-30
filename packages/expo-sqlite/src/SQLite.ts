@@ -4,7 +4,15 @@ import customOpenDatabase from '@expo/websql/custom';
 import { NativeModulesProxy } from 'expo-modules-core';
 import { Platform } from 'react-native';
 
-import { Query, ResultSet, ResultSetError, SQLiteCallback, WebSQLDatabase } from './SQLite.types';
+import type {
+  Query,
+  ResultSet,
+  ResultSetError,
+  SQLiteCallback,
+  SQLTransactionAsyncCallback,
+  WebSQLDatabase,
+} from './SQLite.types';
+import { ExpoSQLTransactionAsync } from './SQLiteAsync';
 
 const { ExponentSQLite } = NativeModulesProxy;
 
@@ -40,6 +48,19 @@ class SQLiteDatabase {
     );
   }
 
+  async execAsync(queries: Query[], readOnly: boolean): Promise<ResultSet[]> {
+    if (this._closed) {
+      throw new Error(`The SQLite database is closed`);
+    }
+
+    const nativeResultSets = await ExponentSQLite.exec(
+      this._name,
+      queries.map(_serializeQuery),
+      readOnly
+    );
+    return nativeResultSets.map(_deserializeResultSet);
+  }
+
   close() {
     this._closed = true;
     ExponentSQLite.close(this._name);
@@ -51,6 +72,17 @@ class SQLiteDatabase {
     }
 
     return ExponentSQLite.delete(this._name);
+  }
+
+  async transactionAsync(asyncCallback: SQLTransactionAsyncCallback): Promise<void> {
+    await this.execAsync([{ sql: 'BEGIN;', args: [] }], false);
+    try {
+      const transaction = new ExpoSQLTransactionAsync(this as any as WebSQLDatabase, false);
+      await asyncCallback(transaction);
+      await this.execAsync([{ sql: 'END;', args: [] }], false);
+    } catch {
+      await this.execAsync([{ sql: 'ROLLBACK;', args: [] }], false);
+    }
   }
 }
 
@@ -113,7 +145,7 @@ export function openDatabase(
     throw new TypeError(`The database name must not be undefined`);
   }
   const db = _openExpoSQLiteDatabase(name, version, description, size, callback);
-  const extendedMethods = ['exec', 'close', 'deleteAsync'];
+  const extendedMethods = ['exec', 'close', 'deleteAsync', 'transactionAsync'];
   const dbWithExtendedMethods = extendedMethods.reduce((curr, methodName) => {
     curr[methodName] = curr._db[methodName].bind(curr._db);
     return curr;
