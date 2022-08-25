@@ -9,6 +9,7 @@ const app: any = express();
 let server: any;
 
 let messages: any[] = [];
+let logMessages: any[] = [];
 let responsesToServe: any[] = [];
 
 let updateRequest: any = null;
@@ -28,6 +29,7 @@ export function stop() {
     server = null;
   }
   messages = [];
+  logMessages = [];
   responsesToServe = [];
   updateRequest = null;
   manifestToServe = null;
@@ -68,6 +70,13 @@ app.post('/post', (req: any, res: any) => {
   }
 });
 
+app.post('/log', (req: any, res: any) => {
+  logMessages.push(req.body);
+  res.set('Cache-Control', 'no-store');
+  res.send('Received request');
+  console.warn('Log message received: ' + req.body);
+});
+
 export async function waitForRequest(timeout: number, responseToServe?: { command: string }) {
   const finishTime = new Date().getTime() + timeout;
 
@@ -84,6 +93,20 @@ export async function waitForRequest(timeout: number, responseToServe?: { comman
   }
 
   return messages.shift();
+}
+
+export async function waitForLogMessage(timeout: number) {
+  const finishTime = new Date().getTime() + timeout;
+
+  while (!logMessages.length) {
+    const currentTime = new Date().getTime();
+    if (currentTime >= finishTime) {
+      throw new Error('Timed out waiting for message');
+    }
+    await setTimeout(50);
+  }
+
+  return logMessages.shift();
 }
 
 app.get('/update', (req: any, res: any) => {

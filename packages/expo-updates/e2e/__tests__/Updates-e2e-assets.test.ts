@@ -280,4 +280,15 @@ describe('Asset deletion recovery', () => {
     expect(readAssetsMessage.updateId).toEqual(manifest.id);
     expect(Server.consumeRequestedStaticFiles().length).toBe(1); // should have re-downloaded only the JS bundle; the rest should have been copied from the app binary
   });
+  it('readLogEntriesAsync works as expected', async () => {
+    jest.setTimeout(300000 * TIMEOUT_BIAS);
+    Server.start(SERVER_PORT);
+
+    await Simulator.installApp('assets');
+    await Simulator.startApp();
+
+    const logMessage = await Server.waitForLogMessage(10000 * TIMEOUT_BIAS);
+
+    expect(logMessage.length > 0).toBe(true);
+  });
 });

@@ -12,6 +12,19 @@ const PORT = 'UPDATES_PORT';
 require('./test.png');
 Inter_900Black;
 
+async function readLogs() {
+  const logUrl = `http://${HOSTNAME}:${PORT}/log`;
+  try {
+    const logEntries = await Updates.readLogEntriesAsync(60000);
+    await fetch(logUrl, `Log entry count = ${logEntries.length}`);
+    for (let i = 0; i < logEntries.length; i++) {
+      await fetch(logUrl, logEntries[i]);
+    }
+  } catch (e) {
+    console.warn(`Error in reading log entries: ${e.message}`);
+  }
+}
+
 async function fetchWithRetry(url, body) {
   for (let i = 0; i < RETRY_COUNT; i++) {
     try {
@@ -93,6 +106,10 @@ async function clearExpoInternal() {
 }
 
 export default function App() {
+  useEffect(async () => {
+    await readLogs();
+  }, []);
+
   useEffect(async () => {
     const response = await fetchWithRetry(`http://${HOSTNAME}:${PORT}/notify/test`);
     const responseObj = await response.json();
