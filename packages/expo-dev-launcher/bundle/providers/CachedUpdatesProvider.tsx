@@ -4,29 +4,18 @@ import {
   getCachedUpdates,
 } from '../native-modules/DevLauncherInternal';
 
-type App = {
-  id: string;
-  url: string;
-  name: string;
-  timestamp: number;
-};
+import type {
+  RecentAppUpdate,
+} from './RecentlyOpenedAppsProvider';
 
-export type RecentApp =
-  | (App & {
-      isEASUpdate: true;
-      branchName: string;
-      updateMessage: string;
-    })
-  | (App & { isEASUpdate: false });
-
-type CachedUpdates = {
-  cachedUpdates: RecentApp[];
-  setCachedUpdates: ((cachedUpdates: RecentApp[]) => void)
+export type CachedUpdates = {
+  cachedUpdates: RecentAppUpdate[];
+  setCachedUpdates: (recentApps: RecentAppUpdate[]) => void;
 };
 
 const Context = React.createContext<CachedUpdates>({
   cachedUpdates: [],
-  setCachedUpdates: (_cachedUpdates: RecentApp[]) => {}
+  setCachedUpdates: (_cachedUpdates: RecentAppUpdate[]) => {}
 });
 
 type CachedUpdatesProviderProps = {
@@ -36,7 +25,7 @@ type CachedUpdatesProviderProps = {
 export function CachedUpdatesProvider({
   children
 }: CachedUpdatesProviderProps) {
-  const [cachedUpdates, setCachedUpdates] = React.useState<RecentApp[]>([]);
+  const [cachedUpdates, setCachedUpdates] = React.useState<RecentAppUpdate[]>([]);
   return <Context.Provider value={{ cachedUpdates, setCachedUpdates }}>{children}</Context.Provider>;
 }
 
@@ -51,7 +40,7 @@ export function useCachedUpdates() {
       .then((apps) => {
         console.log('useCachedUpdates: apps.length = ' + apps.length);
         // use a map to index apps by their url:
-        const cachedUpdates: { [id: string]: RecentApp } = {};
+        const cachedUpdates: { [id: string]: RecentAppUpdate } = {};
 
         for (const app of apps) {
           const id = app.id;

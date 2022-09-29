@@ -33,7 +33,11 @@ import { useCachedUpdates } from '../providers/CachedUpdatesProvider';
 import { useCrashReport } from '../providers/CrashReportProvider';
 import { useDevSessions } from '../providers/DevSessionsProvider';
 import { useModalStack } from '../providers/ModalStackProvider';
-import { RecentApp, useRecentlyOpenedApps } from '../providers/RecentlyOpenedAppsProvider';
+import {
+  RecentApp,
+  RecentAppUpdate,
+  useRecentlyOpenedApps,
+} from '../providers/RecentlyOpenedAppsProvider';
 import { useToastStack } from '../providers/ToastStackProvider';
 import { useUpdatesConfig } from '../providers/UpdatesConfigProvider';
 import { DevSession } from '../types';
@@ -74,7 +78,7 @@ export function HomeScreen({
 
     await loadApp(url).catch((error) => {
       setLoadingUrl('');
-      modalStack.push(() => <LoadAppErrorModal message={error.message} />);
+      modalStack?.push(() => <LoadAppErrorModal message={error.message} />);
     });
 
     setLoadingUrl('');
@@ -100,9 +104,9 @@ export function HomeScreen({
     });
   };
 
-  const onRecentAppPress = async (app: RecentApp) => {
+  const onRecentAppPress = async (app: RecentAppUpdate) => {
     if (app.isEASUpdate) {
-      const updateUrl = formatUpdateUrl(app.url, app.updateMessage);
+      const updateUrl = formatUpdateUrl(app.url, app?.updateMessage || '');
       loadUpdate(updateUrl, projectUrl).catch((error) => {
         toastStack.push(() => <Toasts.Error>{error.message}</Toasts.Error>, {
           durationMs: 10000,
@@ -114,7 +118,7 @@ export function HomeScreen({
   };
 
   const onDevServerQuestionPress = () => {
-    modalStack.push(() => <DevServerExplainerModal />);
+    modalStack?.push(() => <DevServerExplainerModal />);
   };
 
   const onCrashReportPress = () => {
@@ -300,7 +304,7 @@ function CachedUpdates({ onCachedUpdatePress }) {
     return null;
   }
 
-  function renderRow(app: RecentApp) {
+  function renderRow(app: RecentAppUpdate) {
     const label = app.name ?? app.url;
 
     return (

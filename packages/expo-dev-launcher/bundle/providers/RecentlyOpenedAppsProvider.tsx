@@ -12,13 +12,16 @@ type App = {
   timestamp: number;
 };
 
-export type RecentApp =
+export type RecentAppUpdate =
   | (App & {
-      isEASUpdate: true;
-      branchName: string;
-      updateMessage: string;
-    })
+      isEASUpdate: boolean;
+      branchName?: string;
+      updateMessage?: string;
+    });
+export type RecentAppNonUpdate =
   | (App & { isEASUpdate: false });
+
+export type RecentApp = RecentAppUpdate | RecentAppNonUpdate;
 
 type RecentlyOpenedApps = {
   recentApps: RecentApp[];
@@ -44,7 +47,7 @@ export function RecentlyOpenedAppsProvider({
 export function useRecentlyOpenedApps() {
   const [error, setError] = React.useState('');
   const [isFetching, setIsFetching] = React.useState(false);
-  const { recentApps, setRecentApps } = React.useContext(Context);
+  const { recentApps, setRecentApps } = React.useContext<any>(Context);
 
   React.useEffect(() => {
     setIsFetching(true);
