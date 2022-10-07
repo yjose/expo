@@ -16,10 +16,6 @@
     "version": "~> 2.1.0"
   },
   {
-    "name": "lottie-ios",
-    "version": "~> 3.2.3"
-  },
-  {
     "name": "JKBigInteger",
     "version": "0.0.6"
   },
