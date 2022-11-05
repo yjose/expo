@@ -193,7 +193,7 @@ function setVersionsConfig(config, androidManifest) {
 
   if (runtimeVersion) {
     (0, _Manifest().removeMetaDataItemFromMainApplication)(mainApplication, Config.SDK_VERSION);
-    (0, _Manifest().addMetaDataItemToMainApplication)(mainApplication, Config.RUNTIME_VERSION, 'runtime_version', 'resource');
+    (0, _Manifest().addMetaDataItemToMainApplication)(mainApplication, Config.RUNTIME_VERSION, '@string/runtime_version', 'resource');
   } else if (sdkVersion) {
     /**
      * runtime version maybe null in projects using classic updates. In that

@@ -157,7 +157,7 @@ export function setVersionsConfig(
   const sdkVersion = getSDKVersion(config);
   if (runtimeVersion) {
     removeMetaDataItemFromMainApplication(mainApplication, Config.SDK_VERSION);
-    addMetaDataItemToMainApplication(mainApplication, Config.RUNTIME_VERSION, 'runtime_version', 'resource');
+    addMetaDataItemToMainApplication(mainApplication, Config.RUNTIME_VERSION, '@string/runtime_version', 'resource');
   } else if (sdkVersion) {
     /**
      * runtime version maybe null in projects using classic updates. In that
