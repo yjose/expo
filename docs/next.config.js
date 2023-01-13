@@ -40,6 +40,7 @@ const removeConsole =
 /** @type {import('next').NextConfig}  */
 export default {
   trailingSlash: true,
+  basePath: '/pr-20583',
   experimental: {
     esmExternals: true,
     fontLoaders: [{ loader: '@next/font/google', options: { subsets: ['latin'] } }],
