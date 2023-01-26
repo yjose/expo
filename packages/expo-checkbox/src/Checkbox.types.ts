@@ -28,11 +28,3 @@ export type CheckboxProps = ViewProps & {
    */
   onValueChange?: (value: boolean) => void;
 };
-
-// @docsMissing
-export type CheckboxComponent = React.FC<CheckboxProps> & {
-  /**
-   * @deprecated
-   */
-  isAvailableAsync: () => Promise<boolean>;
-};

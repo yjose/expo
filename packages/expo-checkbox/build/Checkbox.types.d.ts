@@ -27,10 +27,4 @@ export type CheckboxProps = ViewProps & {
      */
     onValueChange?: (value: boolean) => void;
 };
-export type CheckboxComponent = React.FC<CheckboxProps> & {
-    /**
-     * @deprecated
-     */
-    isAvailableAsync: () => Promise<boolean>;
-};
 //# sourceMappingURL=Checkbox.types.d.ts.map
