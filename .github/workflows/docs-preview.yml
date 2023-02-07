@@ -43,15 +43,6 @@ jobs:
       - run: yarn danger ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: 🔺 Install Vercel CLI
-      #   run: yarn global add vercel@latest
-      # - name: 🚚 Pull Vercel Environment Information
-      #   run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-      # - name: 🏗️ Build Documentation Artifacts
-      #   run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-      # - name: 🚀 Deploy Documentation Artifacts to Vercel
-      #   id: vercel_deploy
-      #   run: echo "PREVIEW_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} | tail -n 1)" >> $GITHUB_OUTPUT
       - name: 🏗️ Build Docs website for deploy
         run: yarn export
         timeout-minutes: 20
@@ -81,7 +72,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'The documentation preview URL is: TODO: ${{ github.event.pull_request.number }}.'
+              body: 'Docs preview created! View it [here](https://s3.us-east-2.amazonaws.com/docs.expo.dev-preview/pr-${{ github.event.pull_request.number }}/index.html).'
             });
       - name: 💬 Update comment with preview URL
         if: steps.old_comment.outputs.comment-id != ''
@@ -94,5 +85,5 @@ jobs:
               comment_id: '${{ steps.old_comment.outputs.comment-id }}',
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'The documentation preview URL is: TODO: ${{ github.event.pull_request.number }}.'
+              body: 'Docs preview created! View it [here](https://s3.us-east-2.amazonaws.com/docs.expo.dev-preview/pr-${{ github.event.pull_request.number }}/index.html).'
             });
