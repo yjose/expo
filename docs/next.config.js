@@ -132,4 +132,14 @@ export default {
   },
   basePath: process.env.AWS_BUCKET ? `/${process.env.AWS_BUCKET}` : '',
   assetPrefix: process.env.AWS_BUCKET ? `/${process.env.AWS_BUCKET}` : '',
+  async rewrites() {
+    return process.env.AWS_BUCKET
+      ? [
+          {
+            source: '/static/:path',
+            destination: `/${process.env.AWS_BUCKET}/static/:path`,
+          },
+        ]
+      : [];
+  },
 };
