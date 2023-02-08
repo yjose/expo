@@ -49,13 +49,21 @@ jobs:
         timeout-minutes: 20
         env:
           AWS_BUCKET: 'docs.expo.dev-preview/pr-${{ github.event.pull_request.number }}'
+      - name: 🪣 Set up docs preview bucket
+        run: |
+          aws s3api create-bucket --acl public-read --bucket docs.expo.dev-pr-${{ github.event.pull_request.number }}
+          aws s3 website s3://docs.expo.dev-pr-${{ github.event.pull_request.number }}/ --index-document index.html
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: 'us-east-2'
       - name: 🚀 Deploy Docs website
         run: ./deploy.sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: 'us-east-2'
-          AWS_BUCKET: 'docs.expo.dev-preview/pr-${{ github.event.pull_request.number }}'
+          AWS_BUCKET: docs.expo.dev-pr-${{ github.event.pull_request.number }}
       - name: 🔍 Find old comment if it exists
         uses: peter-evans/find-comment@v2
         id: old_comment
@@ -73,7 +81,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Docs preview created! View it [here](https://s3.us-east-2.amazonaws.com/docs.expo.dev-preview/pr-${{ github.event.pull_request.number }}/index.html).'
+              body: 'Docs preview created! View it [here](https://s3.us-east-2.amazonaws.com/docs.expo.dev-pr-${{ github.event.pull_request.number }}).'
             });
       - name: 💬 Update comment with preview URL
         if: steps.old_comment.outputs.comment-id != ''
@@ -86,5 +94,5 @@ jobs:
               comment_id: '${{ steps.old_comment.outputs.comment-id }}',
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Docs preview created! View it [here](https://s3.us-east-2.amazonaws.com/docs.expo.dev-preview/pr-${{ github.event.pull_request.number }}/index.html).'
+              body: 'Docs preview created! View it [here](https://s3.us-east-2.amazonaws.com/docs.expo.dev-pr-${{ github.event.pull_request.number }}).'
             });
