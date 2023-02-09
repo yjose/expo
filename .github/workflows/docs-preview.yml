@@ -8,6 +8,10 @@ defaults:
 
 on:
   workflow_dispatch: {}
+  push:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs-preview.yml'
   pull_request:
     paths:
       - 'docs/**'
@@ -42,6 +46,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: 'us-east-1'
         run: |
           aws s3api create-bucket --acl public-read --bucket docs.expo.dev-pr-${{ github.event.pull_request.number }}
           aws s3 website s3://docs.expo.dev-pr-${{ github.event.pull_request.number }}/ --index-document index.html
