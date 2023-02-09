@@ -25,13 +25,6 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'docs:preview')
     runs-on: ubuntu-20.04
     steps:
-      - name: 🪣 Set up docs preview bucket
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3api create-bucket --acl public-read --bucket docs.expo.dev-pr-${{ github.event.pull_request.number }} --region us-east-2
-          aws s3 website s3://docs.expo.dev-pr-${{ github.event.pull_request.number }}/ --index-document index.html
       - name: 👀 Checkout
         uses: actions/checkout@v3
       - name: ⬢ Setup Node
@@ -45,6 +38,13 @@ jobs:
           yarn-docs: 'true'
       - name: ➕ Add `bin` to GITHUB_PATH
         run: echo "$(pwd)/bin" >> $GITHUB_PATH
+      - name: 🪣 Set up docs preview bucket
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3api create-bucket --acl public-read --bucket docs.expo.dev-pr-${{ github.event.pull_request.number }} --region us-east-2
+          aws s3 website s3://docs.expo.dev-pr-${{ github.event.pull_request.number }}/ --index-document index.html
       - name: 🧶 Yarn install
         if: steps.expo-caches.outputs.yarn-docs-hit != 'true'
         run: yarn install --frozen-lockfile
