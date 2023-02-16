@@ -38,10 +38,10 @@ PODS:
     - ABI46_0_0ExpoModulesCore
   - ABI46_0_0EXFaceDetector (11.3.0):
     - ABI46_0_0ExpoModulesCore
-    - GoogleMLKit/FaceDetection (= 2.6.0)
-    - MLKitCommon (= 5.0.0)
-    - MLKitFaceDetection (= 1.5.0)
-    - MLKitVision (= 3.0.0)
+    - GoogleMLKit/FaceDetection (= 3.2.0)
+    - MLKitCommon (= 8.0.0)
+    - MLKitFaceDetection (= 2.2.0)
+    - MLKitVision (= 4.2.0)
   - ABI46_0_0EXFileSystem (14.1.0):
     - ABI46_0_0ExpoModulesCore
   - ABI46_0_0EXFirebaseAnalytics (7.1.1):
@@ -685,10 +685,10 @@ PODS:
     - ABI47_0_0ExpoModulesCore
   - ABI47_0_0EXFaceDetector (12.0.0):
     - ABI47_0_0ExpoModulesCore
-    - GoogleMLKit/FaceDetection (= 2.6.0)
-    - MLKitCommon (= 5.0.0)
-    - MLKitFaceDetection (= 1.5.0)
-    - MLKitVision (= 3.0.0)
+    - GoogleMLKit/FaceDetection (= 3.2.0)
+    - MLKitCommon (= 8.0.0)
+    - MLKitFaceDetection (= 2.2.0)
+    - MLKitVision (= 4.2.0)
   - ABI47_0_0EXFileSystem (15.1.0):
     - ABI47_0_0ExpoModulesCore
   - ABI47_0_0EXFirebaseAnalytics (8.0.0):
@@ -1345,10 +1345,10 @@ PODS:
     - ABI48_0_0ExpoModulesCore
   - ABI48_0_0EXFaceDetector (12.1.0):
     - ABI48_0_0ExpoModulesCore
-    - GoogleMLKit/FaceDetection (= 2.6.0)
-    - MLKitCommon (= 5.0.0)
-    - MLKitFaceDetection (= 1.5.0)
-    - MLKitVision (= 3.0.0)
+    - GoogleMLKit/FaceDetection (= 3.2.0)
+    - MLKitCommon (= 8.0.0)
+    - MLKitFaceDetection (= 2.2.0)
+    - MLKitVision (= 4.2.0)
   - ABI48_0_0EXFileSystem (15.2.0):
     - ABI48_0_0ExpoModulesCore
   - ABI48_0_0EXFont (11.1.0):
@@ -1501,8 +1501,8 @@ PODS:
     - ABI48_0_0ExpoModulesCore
   - ABI48_0_0ExpoMaps (0.0.1):
     - ABI48_0_0ExpoModulesCore
-    - GoogleMaps (= 7.1.0)
-    - GooglePlaces (= 7.1.0)
+    - GoogleMaps (= 7.3.0)
+    - GooglePlaces (= 7.3.0)
   - ABI48_0_0ExpoModulesCore (1.2.0):
     - ABI48_0_0React-Core
     - ABI48_0_0React-RCTAppDelegate
@@ -2052,8 +2052,10 @@ PODS:
     - StripePaymentsUI (~> 23.3.0)
   - ABI48_0_0UMAppLoader (4.1.0)
   - ABI48_0_0Yoga (1.14.0)
-  - Amplitude (6.0.0)
+  - Amplitude (8.15.0):
+    - AnalyticsConnector (~> 1.0.0)
   - Analytics (4.1.7)
+  - AnalyticsConnector (1.0.1)
   - AppAuth (1.6.0):
     - AppAuth/Core (= 1.6.0)
     - AppAuth/ExternalUserAgent (= 1.6.0)
@@ -2100,12 +2102,6 @@ PODS:
     - ExpoModulesCore
   - EXErrorRecovery (4.1.1):
     - ExpoModulesCore
-  - EXFaceDetector (12.1.1):
-    - ExpoModulesCore
-    - GoogleMLKit/FaceDetection (= 2.6.0)
-    - MLKitCommon (= 5.0.0)
-    - MLKitFaceDetection (= 1.5.0)
-    - MLKitVision (= 3.0.0)
   - EXFileSystem (15.2.2):
     - ExpoModulesCore
   - EXFont (11.1.1):
@@ -2312,19 +2308,19 @@ PODS:
     - Google-Maps-iOS-Utils/GeometryUtils (= 4.1.0)
     - Google-Maps-iOS-Utils/Heatmap (= 4.1.0)
     - Google-Maps-iOS-Utils/QuadTree (= 4.1.0)
-    - GoogleMaps
+    - GoogleMaps (>= 7.3)
   - Google-Maps-iOS-Utils/Clustering (4.1.0):
     - Google-Maps-iOS-Utils/QuadTree
-    - GoogleMaps
+    - GoogleMaps (>= 7.3)
   - Google-Maps-iOS-Utils/Geometry (4.1.0):
-    - GoogleMaps
+    - GoogleMaps (>= 7.3)
   - Google-Maps-iOS-Utils/GeometryUtils (4.1.0):
-    - GoogleMaps
+    - GoogleMaps (>= 7.3)
   - Google-Maps-iOS-Utils/Heatmap (4.1.0):
     - Google-Maps-iOS-Utils/QuadTree
-    - GoogleMaps
+    - GoogleMaps (>= 7.3)
   - Google-Maps-iOS-Utils/QuadTree (4.1.0):
-    - GoogleMaps
+    - GoogleMaps (>= 7.3)
   - Google-Mobile-Ads-SDK (9.5.0):
     - GoogleAppMeasurement (< 10.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
@@ -2352,17 +2348,17 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMaps (7.1.0):
-    - GoogleMaps/Maps (= 7.1.0)
-  - GoogleMaps/Base (7.1.0)
-  - GoogleMaps/Maps (7.1.0):
+  - GoogleMaps (7.3.0):
+    - GoogleMaps/Maps (= 7.3.0)
+  - GoogleMaps/Base (7.3.0)
+  - GoogleMaps/Maps (7.3.0):
     - GoogleMaps/Base
-  - GoogleMLKit/FaceDetection (2.6.0):
+  - GoogleMLKit/FaceDetection (3.2.0):
     - GoogleMLKit/MLKitCore
-    - MLKitFaceDetection (~> 1.5.0)
-  - GoogleMLKit/MLKitCore (2.6.0):
-    - MLKitCommon (~> 5.0.0)
-  - GooglePlaces (7.1.0)
+    - MLKitFaceDetection (~> 2.2.0)
+  - GoogleMLKit/MLKitCore (3.2.0):
+    - MLKitCommon (~> 8.0.0)
+  - GooglePlaces (7.3.0)
   - GoogleSignIn (7.0.0):
     - AppAuth (~> 1.5)
     - GTMAppAuth (< 3.0, >= 1.3)
@@ -2447,8 +2443,8 @@ PODS:
     - lottie-ios (~> 3.4.0)
     - React-Core
   - MBProgressHUD (1.2.0)
-  - MLImage (1.0.0-beta2)
-  - MLKitCommon (5.0.0):
+  - MLImage (1.0.0-beta3)
+  - MLKitCommon (8.0.0):
     - GoogleDataTransport (~> 9.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
@@ -2457,15 +2453,15 @@ PODS:
     - GoogleUtilitiesComponents (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.12)
-  - MLKitFaceDetection (1.5.0):
-    - MLKitCommon (~> 5.0)
-    - MLKitVision (~> 3.0)
-  - MLKitVision (3.0.0):
+  - MLKitFaceDetection (2.2.0):
+    - MLKitCommon (~> 8.0)
+    - MLKitVision (~> 4.2)
+  - MLKitVision (4.2.0):
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - GTMSessionFetcher/Core (~> 1.1)
-    - MLImage (= 1.0.0-beta2)
-    - MLKitCommon (~> 5.0)
+    - MLImage (= 1.0.0-beta3)
+    - MLKitCommon (~> 8.0)
     - Protobuf (~> 3.12)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
@@ -3294,7 +3290,7 @@ DEPENDENCIES:
   - "ABI48_0_0stripe-react-native (from `./vendored/sdk48/@stripe/stripe-react-native`)"
   - ABI48_0_0UMAppLoader (from `./versioned/sdk48/UMAppLoader`)
   - ABI48_0_0Yoga (from `./versioned-react-native/ABI48_0_0/ReactNative/ReactCommon/yoga`)
-  - Amplitude
+  - Amplitude (~> 8.15.0)
   - boost (from `../react-native-lab/react-native/third-party-podspecs/boost.podspec`)
   - CocoaLumberjack (~> 3.5.3)
   - DoubleConversion (from `../react-native-lab/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -3311,7 +3307,6 @@ DEPENDENCIES:
   - EXContacts (from `../packages/expo-contacts/ios`)
   - EXDocumentPicker (from `../packages/expo-document-picker/ios`)
   - EXErrorRecovery (from `../packages/expo-error-recovery/ios`)
-  - EXFaceDetector (from `../packages/expo-face-detector/ios`)
   - EXFileSystem (from `../packages/expo-file-system/ios`)
   - EXFont (from `../packages/expo-font/ios`)
   - EXImageLoader (from `../packages/expo-image-loader/ios`)
@@ -3373,8 +3368,8 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../react-native-lab/react-native/React/FBReactNativeSpec`)
   - FirebaseCore
   - glog (from `../react-native-lab/react-native/third-party-podspecs/glog.podspec`)
-  - Google-Maps-iOS-Utils (~> 4.1.0)
-  - GoogleMaps (~> 7.1)
+  - Google-Maps-iOS-Utils (from `https://github.com/vincentisambart/google-maps-ios-utils.git`, branch `arm-mac-simulator`)
+  - GoogleMaps (~> 7.3.0)
   - GoogleUtilities
   - hermes-engine (from `../react-native-lab/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - JKBigInteger (from `vendored/common/JKBigInteger.podspec.json`)
@@ -3432,6 +3427,7 @@ SPEC REPOS:
   trunk:
     - Amplitude
     - Analytics
+    - AnalyticsConnector
     - AppAuth
     - ASN1Decoder
     - Branch
@@ -3447,7 +3443,6 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseInstallations
     - fmt
-    - Google-Maps-iOS-Utils
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -4179,8 +4174,6 @@ EXTERNAL SOURCES:
     :path: "../packages/expo-document-picker/ios"
   EXErrorRecovery:
     :path: "../packages/expo-error-recovery/ios"
-  EXFaceDetector:
-    :path: "../packages/expo-face-detector/ios"
   EXFileSystem:
     :path: "../packages/expo-file-system/ios"
   EXFont:
@@ -4289,6 +4282,9 @@ EXTERNAL SOURCES:
     :path: "../react-native-lab/react-native/React/FBReactNativeSpec"
   glog:
     :podspec: "../react-native-lab/react-native/third-party-podspecs/glog.podspec"
+  Google-Maps-iOS-Utils:
+    :branch: arm-mac-simulator
+    :git: https://github.com/vincentisambart/google-maps-ios-utils.git
   hermes-engine:
     :podspec: "../react-native-lab/react-native/sdks/hermes-engine/hermes-engine.podspec"
   JKBigInteger:
@@ -4386,6 +4382,11 @@ EXTERNAL SOURCES:
   Yoga:
     :path: "../react-native-lab/react-native/ReactCommon/yoga"
 
+CHECKOUT OPTIONS:
+  Google-Maps-iOS-Utils:
+    :commit: 5fa68062aa46b97c963e185336aa992607609fb1
+    :git: https://github.com/vincentisambart/google-maps-ios-utils.git
+
 SPEC CHECKSUMS:
   ABI46_0_0EASClient: c419fef100fbdac83e755c790d6b427594d4263e
   ABI46_0_0EXAppleAuthentication: 61c95f030898d57ecbdf1e8fe05d9b43d463b507
@@ -4403,7 +4404,7 @@ SPEC CHECKSUMS:
   ABI46_0_0EXDevice: b474ca9136f899a023bb8e46f9286ff3b7130c68
   ABI46_0_0EXDocumentPicker: e3cdaea0d1a753a27a16a742f11fc13b68abc73d
   ABI46_0_0EXErrorRecovery: 57414b3f06d179dcb9103e84a8d29c20a7844157
-  ABI46_0_0EXFaceDetector: 8e6fee14dd8d4e44b1fe50f830a7e810a73654a7
+  ABI46_0_0EXFaceDetector: 339289d627764e1d0f61e485c4846ad1ca025146
   ABI46_0_0EXFileSystem: 7c3f65d29dd12cadccd6e46c906758bbdbe864cc
   ABI46_0_0EXFirebaseAnalytics: 8d16689cf40fdfa0c625993f2490a61b5786c98f
   ABI46_0_0EXFirebaseCore: e2c8e2fe87a94a871e661c7278d67d3aac8732de
@@ -4509,7 +4510,7 @@ SPEC CHECKSUMS:
   ABI47_0_0EXDevice: 7662fd834f4dcd51da363527668d027c749e7014
   ABI47_0_0EXDocumentPicker: cc83c0a15125844adf6b2c1d29e8194ab9238462
   ABI47_0_0EXErrorRecovery: f56fae8d37bb6f1c23138ff1396b097470105e95
-  ABI47_0_0EXFaceDetector: 491dff65c82435fca60274ddbdb1216266efa43c
+  ABI47_0_0EXFaceDetector: 9ef2a007aa257398e90968eac0dada1d7d0712e9
   ABI47_0_0EXFileSystem: 5ed4625d96bc53c0144f2f3b5a2013510c82dcfd
   ABI47_0_0EXFirebaseAnalytics: d05b15f641d0325f67e58512e0c83605f1d9e14b
   ABI47_0_0EXFirebaseCore: 3e3b69be1923cf89331827f7eb6422fc849d2ba8
@@ -4615,7 +4616,7 @@ SPEC CHECKSUMS:
   ABI48_0_0EXContacts: ee8d55d53584f864052db6a6e463101dff51e63d
   ABI48_0_0EXDocumentPicker: ae50fc0550645c166ad076fe016d8a0702e04fe6
   ABI48_0_0EXErrorRecovery: 7fbda71caee2c9f415eec962fa6c756f2b13ac61
-  ABI48_0_0EXFaceDetector: 28964dd07378a3e630c3068a0b37263cac902c2f
+  ABI48_0_0EXFaceDetector: 6d9993fe7da05574e421bb817378e85df5474488
   ABI48_0_0EXFileSystem: 59856fc59aa219c5eefb5c5ab596b8467af13f85
   ABI48_0_0EXFont: 1394eb694a9c4440aef3eba4eadad476606b3260
   ABI48_0_0EXImageLoader: cffc91ddcdc6273bdd5c04759cdb3edd7c6f2c11
@@ -4645,7 +4646,7 @@ SPEC CHECKSUMS:
   ABI48_0_0ExpoLocalAuthentication: 3bcdbb1f70199da9bef162fce270a63216de5af3
   ABI48_0_0ExpoLocalization: 2c7d78b402141ac90b443baf2c106f5f33b7053d
   ABI48_0_0ExpoMailComposer: 3a6d4dc621e3ca4390b82b1e5b3d767fe62446d7
-  ABI48_0_0ExpoMaps: bbf318517183f67b9381871fc78de56d5360f7a1
+  ABI48_0_0ExpoMaps: 5f50498b8988357a8343d4cc3ff1113d03ad07a8
   ABI48_0_0ExpoModulesCore: c19c70283f791c1e40dcafc404bfe64b1b69c245
   ABI48_0_0ExpoModulesProvider: 0ded590cc0f4056333f8f7b71834a7b1f46432b3
   ABI48_0_0ExpoNetwork: a2cc3011ba2bc43ba44d8a0db5baf4da981b47e9
@@ -4716,12 +4717,13 @@ SPEC CHECKSUMS:
   ABI48_0_0stripe-react-native: 10d38e575f12896c284962183534058ece127c5e
   ABI48_0_0UMAppLoader: 53ad457a547ae1c313877d22866478764526c93f
   ABI48_0_0Yoga: 13a232e4a5d1ecd44a45e050b5983aa20116b1fa
-  Amplitude: cc34fcd8dfffc3470bc2e05f3a4abb0178f6d963
+  Amplitude: e9e7ab6bca2c8b76ba2d814e1bd8048551130bf9
   Analytics: 3106b5af9b799c934f98a68ab8ba199f1c603fdb
+  AnalyticsConnector: eccd7e1cd3dd18e6bd09ac2506e37d4ed43ba3f4
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   ASN1Decoder: 6110fdeacfdb41559b1481457a1645be716610aa
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
-  Branch: 9a37f707974a128c37829033c49018b79c7e7a2d
+  Branch: 23b6b9351d5574377e7a764841cfb13a70c2799b
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   EASClient: 950674e1098ebc09c4c2cf064a61e42e84d9d4c6
@@ -4736,7 +4738,6 @@ SPEC CHECKSUMS:
   EXContacts: 44ced67015dab45ca8ae1eb8950738d60de0af64
   EXDocumentPicker: 909609253c185cc6d802f408c7eaf7a4daca793b
   EXErrorRecovery: ebb57ae947ff94667f1cbc12f403bb5a043d734d
-  EXFaceDetector: 16c5311521334ba7818c28cde44997d6757c2dd0
   EXFileSystem: 844e86ca9b5375486ecc4ef06d3838d5597d895d
   EXFont: 6ea3800df746be7233208d80fe379b8ed74f4272
   EXImageLoader: fd053169a8ee932dd83bf1fe5487a50c26d27c2b
@@ -4802,13 +4803,13 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 0a115432c4e223c5ab20b0dbbe4cbefa793a0e8e
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
-  Google-Maps-iOS-Utils: 3343332b18dfd5be8f1f44edd7d481ace3da4d9a
+  Google-Maps-iOS-Utils: 2954849c4844ad2a0ed214923c393b11b2a68ba7
   Google-Mobile-Ads-SDK: caf686ba55108412e02a3eedb136e12e488dbfaa
   GoogleAppMeasurement: 6ee231473fbd75c11221dfce489894334024eead
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
-  GoogleMaps: bc56ffb0324e345a2d91bac1a64a920f9c8f1b20
-  GoogleMLKit: 755661c46990a85e42278015f26400286d98ad95
-  GooglePlaces: 187946335ec3dc624de71c0a9ddcc712f19b0ee1
+  GoogleMaps: a146f275ee429d14822178c7a841c03366ec92a1
+  GoogleMLKit: 0017a6a8372e1a182139b9def4d89be5d87ca5a7
+  GooglePlaces: 0609463845250bbadafa1739938181e54dece439
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
   GoogleUserMessagingPlatform: 5f8b30daf181805317b6b985bb51c1ff3beca054
@@ -4826,10 +4827,10 @@ SPEC CHECKSUMS:
   lottie-ios: 8f97d3271e155c2d688875c29cd3c74908aef5f8
   lottie-react-native: b702fab740cdb952a8e2354713d3beda63ff97b0
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  MLImage: a454f9f8ecfd537783a12f9488f5be1a68820829
-  MLKitCommon: 3bc17c6f7d25ce3660f030350b46ae7ec9ebca6e
-  MLKitFaceDetection: 617cb847441868a8bfd4b48d751c9b33c1104948
-  MLKitVision: e87dc3f2e456a6ab32361ebd985e078dd2746143
+  MLImage: 489dfec109f21da8621b28d476401aaf7a0d4ff4
+  MLKitCommon: f6da6c5659618c070b50a80db01248ebe2964175
+  MLKitFaceDetection: 9f29d8d0bb38911281407e24e74d2e5da812ba8d
+  MLKitVision: 96c96571190b7f63eddf4a12068ce8a8689e0d2c
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   Nimble: d954d0accfd082f2225e62d71008440493e318f4
   OCHamcrest: a613690381f1dac7637c18962c10dbe8feca4bb5
@@ -4895,6 +4896,6 @@ SPEC CHECKSUMS:
   Yoga: 5b0304b3dbef2b52e078052138e23a19c7dacaef
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 6bb5b123ef65907681848e92e63a6f9535528e03
+PODFILE CHECKSUM: 7821ea47d01ba3d58a1f166a1ef99da62e5bc5f8
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

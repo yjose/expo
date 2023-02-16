@@ -13,10 +13,10 @@ $expo_updates_create_manifest = false
 
 abstract_target 'Expo Go' do
   # Expo Client dependencies
-  pod 'Amplitude'
+  pod 'Amplitude', '~> 8.15.0'
   pod 'CocoaLumberjack', '~> 3.5.3'
-  pod 'GoogleMaps', '~> 7.1'
-  pod 'Google-Maps-iOS-Utils', '~> 4.1.0'
+  pod 'GoogleMaps', '~> 7.3.0'
+  pod 'Google-Maps-iOS-Utils', :git => 'https://github.com/vincentisambart/google-maps-ios-utils.git', :branch => 'arm-mac-simulator'
   pod 'JKBigInteger', :podspec => 'vendored/common/JKBigInteger.podspec.json'
   pod 'MBProgressHUD', '~> 1.2.0'
 
@@ -73,7 +73,7 @@ abstract_target 'Expo Go' do
       # These actions are specified in `versioned-react-native/ABI*/postinstalls.rb` files.
       run_versioned_postinstalls!(pod_name, target_installation_result)
 
-      # This is necessary for Xcode 14 that by default signs resource bundles when building for the device.
+    # This is necessary for Xcode 14 that by default signs resource bundles when building for the device.
       target_installation_result.resource_bundle_targets.each do |resource_bundle_target|
         resource_bundle_target.build_configurations.each do |config|
           config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
@@ -83,8 +83,6 @@ abstract_target 'Expo Go' do
       target_installation_result.native_target.build_configurations.each do |config|
         config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
 
-        # Fix building failures on M1
-        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
       end
 
       if pod_name == 'Branch'
@@ -99,6 +97,13 @@ abstract_target 'Expo Go' do
         target_installation_result.native_target.build_configurations.each do |config|
           config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
           config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/Headers/Public/StripePayments"'
+        end
+      end
+
+      if pod_name == 'Amplitude'
+        target_installation_result.native_target.build_configurations.each do |config|
+          config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+          config.build_settings['HEADER_SEARCH_PATHS'] << ['"$(PODS_ROOT)/Headers/Public/AnalyticsConnector/AnalyticsConnector.h"','"$(PODS_ROOT)/Amplitude/Sources/Amplitude"']
         end
       end
 
