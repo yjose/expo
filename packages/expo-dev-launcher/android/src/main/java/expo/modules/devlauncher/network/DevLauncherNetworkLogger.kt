@@ -72,18 +72,23 @@ class DevLauncherNetworkLogger private constructor() {
       put("timestamp", now)
       put("wallTime", now)
       if (redirectResponse != null) {
-        put("redirectResponse", mapOf(
-          "url" to redirectResponse.request().url().toString(),
-          "status" to redirectResponse.code(),
-          "statusText" to redirectResponse.message(),
-          "headers" to redirectResponse.headers().toSingleMap(),
-        ))
+        put(
+          "redirectResponse",
+          mapOf(
+            "url" to redirectResponse.request().url().toString(),
+            "status" to redirectResponse.code(),
+            "statusText" to redirectResponse.message(),
+            "headers" to redirectResponse.headers().toSingleMap(),
+          )
+        )
       }
     }
-    val data = JSONObject(mapOf(
-      "method" to "Network.requestWillBeSent",
-      "params" to params,
-    ))
+    val data = JSONObject(
+      mapOf(
+        "method" to "Network.requestWillBeSent",
+        "params" to params,
+      )
+    )
     inspectorPackagerConnection.sendWrappedEventToAllPages(data.toString())
   }
 
@@ -107,10 +112,12 @@ class DevLauncherNetworkLogger private constructor() {
       "type" to "Fetch",
       "timestamp" to now,
     )
-    var data = JSONObject(mapOf(
-      "method" to "Network.responseReceived",
-      "params" to params,
-    ))
+    var data = JSONObject(
+      mapOf(
+        "method" to "Network.responseReceived",
+        "params" to params,
+      )
+    )
     inspectorPackagerConnection.sendWrappedEventToAllPages(data.toString())
 
     params = mapOf(
@@ -118,10 +125,12 @@ class DevLauncherNetworkLogger private constructor() {
       "timestamp" to now,
       "encodedDataLength" to (response.body()?.contentLength() ?: 0),
     )
-    data = JSONObject(mapOf(
-      "method" to "Network.loadingFinished",
-      "params" to params,
-    ))
+    data = JSONObject(
+      mapOf(
+        "method" to "Network.loadingFinished",
+        "params" to params,
+      )
+    )
     inspectorPackagerConnection.sendWrappedEventToAllPages(data.toString())
   }
 
@@ -142,10 +151,12 @@ class DevLauncherNetworkLogger private constructor() {
       "body" to bodyString,
       "base64Encoded" to !isText,
     )
-    var data = JSONObject(mapOf(
-      "method" to "Expo(Network.receivedResponseBody)",
-      "params" to params,
-    ))
+    var data = JSONObject(
+      mapOf(
+        "method" to "Expo(Network.receivedResponseBody)",
+        "params" to params,
+      )
+    )
     inspectorPackagerConnection.sendWrappedEventToAllPages(data.toString())
   }
 

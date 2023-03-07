@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.facebook.react.ReactInstanceManager
 import com.facebook.react.devsupport.DevInternalSettings
 import expo.modules.devmenu.devtools.DevMenuDevToolsDelegate
-import kotlinx.coroutines.runBlocking
 
 object DevMenuDevSettings {
   fun getDevSettings(reactInstanceManager: ReactInstanceManager): Bundle {
