@@ -1,7 +1,7 @@
 {
   "cli": {
     "version": ">= 0.52.0",
-    "requireCommit": true
+    "requireCommit": false
   },
   "build": {
     "base": {
@@ -21,11 +21,6 @@
         }
       },
       "ios": {
-        "cache": {
-          "key": "sdk48-0.71.3",
-          "cacheDefaultPaths": false,
-          "customPaths": ["../../ios/Pods"]
-        },
         "resourceClass": "m-medium",
         "env": {
           "EAS_BUILD_PLATFORM": "ios",
