@@ -9,8 +9,6 @@ import expo.modules.kotlin.exception.UnexpectedException
 import expo.modules.kotlin.jni.CppType
 import expo.modules.kotlin.jni.ExpectedType
 import expo.modules.kotlin.jni.SingleType
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 /**
  * Color components for named colors following the [CSS3/SVG specification](https://www.w3.org/TR/css-color-3/#svg-color)
