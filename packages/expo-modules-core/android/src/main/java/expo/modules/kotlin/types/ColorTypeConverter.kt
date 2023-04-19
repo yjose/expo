@@ -1,12 +1,16 @@
 package expo.modules.kotlin.types
 
+import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Build
 import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReadableType
 import expo.modules.kotlin.exception.UnexpectedException
 import expo.modules.kotlin.jni.CppType
 import expo.modules.kotlin.jni.ExpectedType
 import expo.modules.kotlin.jni.SingleType
+import kotlin.collections.component1
+import kotlin.collections.component2
 
 /**
  * Color components for named colors following the [CSS3/SVG specification](https://www.w3.org/TR/css-color-3/#svg-color)
@@ -198,17 +202,17 @@ class ColorTypeConverter(
 
   private fun colorFromDoubleArray(value: DoubleArray): Color {
     val alpha = value.getOrNull(3) ?: 1.0
-    return Color.valueOf(value[0].toFloat(), value[1].toFloat(), value[2].toFloat(), alpha.toFloat())
+    return createColor(value[0].toFloat(), value[1].toFloat(), value[2].toFloat(), alpha.toFloat())
   }
 
   private fun colorFromInt(value: Int): Color {
-    return Color.valueOf(value)
+    return createColor(value)
   }
 
   private fun colorFromString(value: String): Color {
     val colorFromString = namedColors[value]
     if (colorFromString != null) {
-      return Color.valueOf(
+      return createColor(
         colorFromString[0],
         colorFromString[1],
         colorFromString[2],
@@ -216,7 +220,7 @@ class ColorTypeConverter(
       )
     }
 
-    return Color.valueOf(Color.parseColor(value))
+    return createColor(Color.parseColor(value))
   }
 
   override fun getCppRequiredTypes(): ExpectedType =
@@ -230,4 +234,46 @@ class ColorTypeConverter(
     )
 
   override fun isTrivial() = false
+}
+
+private fun createColor(color: Int): Color {
+  return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    Color.valueOf(color)
+  } else {
+    val r = (color shr 16 and 0xff) / 255.0f
+    val g = (color shr 8 and 0xff) / 255.0f
+    val b = (color and 0xff) / 255.0f
+    val a = (color shr 24 and 0xff) / 255.0f
+    createColor(r, g, b, a)
+  }
+}
+
+/**
+ * It seems that the [Color.valueOf] feature is not accessible on Android devices with versions below 26.
+ * As a workaround, we'll need to utilize the reflection API to generate a Color object for older SDK versions.
+ */
+private fun createColor(r: Float, g: Float, b: Float, a: Float): Color {
+  return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    Color.valueOf(r, g, b, a)
+  } else {
+    val color = Color()
+    try {
+      @SuppressLint("DiscouragedPrivateApi")
+      val mComponentsField = Color::class.java.getDeclaredField("mComponents")
+      mComponentsField.isAccessible = true
+      val components = mComponentsField.get(color) as? FloatArray
+      components?.let {
+        it[0] = saturate(r)
+        it[1] = saturate(g)
+        it[2] = saturate(b)
+        it[3] = saturate(a)
+      }
+    } catch (_: Throwable) {
+    }
+    color
+  }
+}
+
+private fun saturate(v: Float): Float {
+  return if (v <= 0.0f) 0.0f else if (v >= 1.0f) 1.0f else v
 }
