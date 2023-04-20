@@ -167,12 +167,12 @@ const config: VendoringTargetConfig = {
               find: /\b(task (prepareHermes|unpackReactNativeAAR).*\{)$/gm,
               replaceWith: `$1\n    return`,
             },
-            {
-              // remove jsc extraction
-              paths: 'build.gradle',
-              find: /def jscAAR = .*\n.*extractSO.*jscAAR.*$/gm,
-              replaceWith: '',
-            },
+            // {
+            //   // remove jsc extraction
+            //   paths: 'build.gradle',
+            //   find: /def jscAAR = .*\n.*extractSO.*jscAAR.*$/gm,
+            //   replaceWith: '',
+            // },
             {
               // compileOnly hermes-engine
               paths: 'build.gradle',
@@ -180,25 +180,25 @@ const config: VendoringTargetConfig = {
               replaceWith:
                 'compileOnly "com.facebook.react:hermes-android:${REACT_NATIVE_VERSION}"',
             },
-            {
-              // find rn libs in ReactAndroid build output
-              paths: 'CMakeLists.txt',
-              find: 'set (RN_SO_DIR ${REACT_NATIVE_DIR}/ReactAndroid/src/main/jni/first-party/react/jni)',
-              replaceWith:
-                'set (RN_SO_DIR "${REACT_NATIVE_DIR}/ReactAndroid/build/intermediates/library_*/*/jni")',
-            },
-            {
-              // find hermes from prefab
-              paths: 'CMakeLists.txt',
-              find: /(string\(APPEND CMAKE_CXX_FLAGS " -DJS_RUNTIME_HERMES=1"\))/g,
-              replaceWith: `find_package(hermes-engine REQUIRED CONFIG)\n    $1`,
-            },
-            {
-              // find hermes from prefab
-              paths: 'CMakeLists.txt',
-              find: /"\$\{BUILD_DIR\}\/.+\/libhermes\.so"/g,
-              replaceWith: `hermes-engine::libhermes`,
-            },
+            // {
+            //   // find rn libs in ReactAndroid build output
+            //   paths: 'CMakeLists.txt',
+            //   find: 'set (RN_SO_DIR ${REACT_NATIVE_DIR}/ReactAndroid/src/main/jni/first-party/react/jni)',
+            //   replaceWith:
+            //     'set (RN_SO_DIR "${REACT_NATIVE_DIR}/ReactAndroid/build/intermediates/library_*/*/jni")',
+            // },
+            // {
+            //   // find hermes from prefab
+            //   paths: 'CMakeLists.txt',
+            //   find: /(string\(APPEND CMAKE_CXX_FLAGS " -DJS_RUNTIME_HERMES=1"\))/g,
+            //   replaceWith: `find_package(hermes-engine REQUIRED CONFIG)\n    $1`,
+            // },
+            // {
+            //   // find hermes from prefab
+            //   paths: 'CMakeLists.txt',
+            //   find: /"\$\{BUILD_DIR\}\/.+\/libhermes\.so"/g,
+            //   replaceWith: `hermes-engine::libhermes`,
+            // },
             {
               // expose `ReanimatedUIManagerFactory.create` publicly
               paths: 'ReanimatedUIManagerFactory.java',
