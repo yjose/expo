@@ -2131,7 +2131,7 @@ PODS:
     - ExpoModulesCore
   - ExpoBattery (7.1.1):
     - ExpoModulesCore
-  - ExpoBlur (12.2.2):
+  - ExpoBlur (12.3.0):
     - ExpoModulesCore
   - ExpoBrightness (11.2.1):
     - ExpoModulesCore
@@ -2146,14 +2146,14 @@ PODS:
     - ExpoModulesCore
   - ExpoDevice (5.2.1):
     - ExpoModulesCore
-  - ExpoDocumentPicker (11.2.1):
+  - ExpoDocumentPicker (11.3.0):
     - ExpoModulesCore
   - ExpoGL (12.4.0):
     - ExpoModulesCore
     - ReactCommon/turbomodule/core
   - ExpoHaptics (12.2.1):
     - ExpoModulesCore
-  - ExpoImage (1.1.0):
+  - ExpoImage (1.2.1):
     - ExpoModulesCore
     - SDWebImage (~> 5.15.0)
     - SDWebImageAVIFCoder (~> 0.9.4)
@@ -2196,7 +2196,7 @@ PODS:
     - ExpoModulesCore
   - ExpoSecureStore (12.1.1):
     - ExpoModulesCore
-  - ExpoSharing (11.2.1):
+  - ExpoSharing (11.3.2):
     - ExpoModulesCore
   - ExpoSMS (11.2.1):
     - ExpoModulesCore
@@ -4738,16 +4738,16 @@ SPEC CHECKSUMS:
   Expo: 79deb55f33fab1b232232868a74713772943238d
   ExpoAppleAuthentication: 7bd5e4150d59e8df37aa80b425850ae88adf9e65
   ExpoBattery: 678d2b710a8fc398c30258c4dc22c12340ee5411
-  ExpoBlur: fac3c6318fdf409dd5740afd3313b2bd52a35bac
+  ExpoBlur: b0d995dbfc725fc5b7ee60da076131995300815d
   ExpoBrightness: fa662d10f9a8547c86264cde7ad754226a1efa72
   ExpoCellular: 2daef47056576e5735f9e93e38739e3176e399ad
   ExpoClipboard: 8a36a8376ab93df9050c14577e9e0fcb805e9114
   ExpoCrypto: 9105610a09cd6290b900bd82fc5d190e489125a3
   ExpoDevice: e0bebf68f978b3d353377ce42e73c20c0a070215
-  ExpoDocumentPicker: 98d6f7987c4e13d79a6b937c8bb26f9002b9cf8d
+  ExpoDocumentPicker: 0da86a728526cc8dd72fce5d322ebcc0c703900f
   ExpoGL: 8f8e40e494a462f33c1f513cf101bf7d6abe767e
   ExpoHaptics: 5156bc5160d8e04c170dd6e645a71154951a2ad9
-  ExpoImage: 80221ee353e8e7f1afee71fdbc8099ae61f394f2
+  ExpoImage: 09d394e082cdd18d946f10a522d566dfca019fb8
   ExpoImageManipulator: 85ab87e9641b9d83108f8d603e0418c12fc19e2d
   ExpoImagePicker: 270dea232b3a072d981dd564e2cafc63a864edb1
   ExpoKeepAwake: 69f5f627670d62318410392d03e0b5db0f85759a
@@ -4761,7 +4761,7 @@ SPEC CHECKSUMS:
   ExpoPrint: a0d6f6817ccd072af447bc96b6122b8e7341332c
   ExpoRandom: 7ee07d62e7003b74d0536e0495e3a653fe1b2a74
   ExpoSecureStore: 22b2088cf8cb9d5a276d7a143fdd5b26f83cc601
-  ExpoSharing: 7cc49c2fda862eddc1578bb0e007fedf50bb35dc
+  ExpoSharing: a285aac22b4a061bdb8d678a3309fd438d80bbf2
   ExpoSMS: e4f3901fdb30ab239ee1172005dbe6634f2d6138
   ExpoSpeech: ed7dda8073aedbb3f0b0e79d16257534fddff516
   ExpoSQLite: 510412d853e6758df616d7d6168d39596efe5b61

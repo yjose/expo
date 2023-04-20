@@ -253,7 +253,6 @@ const general = [
     makePage('guides/authentication.mdx'),
     makePage('guides/delaying-code.mdx'),
     makePage('guides/errors.mdx'),
-    makePage('guides/testing-with-jest.mdx'),
     makePage('guides/troubleshooting-proxies.mdx'),
     makePage('guides/sharing-preview-releases.mdx'),
     makePage('guides/using-hermes.mdx'),
@@ -368,7 +367,6 @@ const archive = [
   ]),
   makeSection('Technical Specs', [makePage('archive/technical-specs/expo-updates-0.mdx')]),
   makeSection('More', [
-    makePage('archive/adhoc-builds.mdx'),
     makePage('archive/expo-cli.mdx'),
     makePage('archive/managed-vs-bare.mdx'),
     makePage('archive/notification-channels.mdx'),

@@ -12,12 +12,16 @@
 
 ### 🐛 Bug fixes
 
+- [Android] Improve the initial loading speed of the native view. ([#22153](https://github.com/expo/expo/pull/22153) by [@lukmccall](https://github.com/lukmccall))
+- Fixed build errors on React Native 0.72.x. ([#22170](https://github.com/expo/expo/pull/22170), [#22189](https://github.com/expo/expo/pull/22189) by [@kudo](https://github.com/kudo))
+
 ### 💡 Others
 
 - [Android] Made `fallbackCallback` optional in the `registerForActivityResult` method. ([#21661](https://github.com/expo/expo/pull/21661) by [@lukmccall](https://github.com/lukmccall))
 - [iOS] Removed the legacy implementation of view managers. ([#21760](https://github.com/expo/expo/pull/21760) by [@tsapeta](https://github.com/tsapeta))
 - [iOS] Passed the app context instance down to dynamic types, object builders and convertibles. ([#21819](https://github.com/expo/expo/pull/21819) by [@tsapeta](https://github.com/tsapeta))
 - [iOS] Use `jsi::WeakObject` for weak objects on Hermes. ([#21986](https://github.com/expo/expo/pull/21986) by [@tsapeta](https://github.com/tsapeta))
+- [iOS] Removed legacyViewManager references from ExpoFabricView. ([#22089](https://github.com/expo/expo/pull/22089) by [@gabrieldonadel](https://github.com/gabrieldonadel))
 
 ## 1.2.6 - 2023-03-20
 
