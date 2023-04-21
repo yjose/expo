@@ -139,14 +139,11 @@ jobs:
           fields: job,message,ref,eventName,author,took
           author_name: Test Suite (iOS)
 
-  android:
-    runs-on: macos-12
+  android-build:
+    runs-on: ubuntu-20.04
     env:
       ORG_GRADLE_PROJECT_reactNativeArchitectures: x86_64
       GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=2048m
-    strategy:
-      matrix:
-        api-level: [33]
     steps:
       - name: 👀 Checkout
         uses: actions/checkout@v3
@@ -161,8 +158,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
-      - name: 🍺 Install required tools
-        run: brew install watchman
       - name: ➕ Add `bin` to GITHUB_PATH
         run: echo "$(pwd)/bin" >> $GITHUB_PATH
       - name: ♻️ Restore caches
@@ -187,6 +182,29 @@ jobs:
           EXPO_DEBUG: 1
           NODE_ENV: production
           GRADLE_OPTS: '-Dorg.gradle.internal.http.connectionTimeout=180000 -Dorg.gradle.internal.http.socketTimeout=180000 -Dorg.gradle.internal.network.retry.max.attempts=18 -Dorg.gradle.internal.network.retry.initial.backOff=2000'
+      - name: 📸 Upload builds
+        uses: actions/upload-artifact@v3
+        with:
+          name: bare-expo-android-builds
+          path: |
+            apps/bare-expo/android/app/build/outputs/apk/release/app-release.apk
+            apps/bare-expo/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk
+
+  android-test:
+    needs: android-build
+    runs-on: macos-12
+    strategy:
+      matrix:
+        api-level: [33]
+    steps:
+      - name: 👀 Checkout
+        uses: actions/checkout@v3
+
+      - name: 🌠 Download builds
+        uses: actions/download-artifact@v3
+        with:
+          name: bare-expo-android-builds
+
       - name: 🧪 Run tests
         uses: ./.github/actions/use-android-emulator
         with:
@@ -199,7 +217,7 @@ jobs:
             ./scripts/start-android-e2e-test.sh
             adb logcat -d > artifacts/adb.log
           working-directory: ./apps/bare-expo
-      - name: 📸 Store images of build failures
+      - name: 📸 Store images of test failures
         if: always()
         uses: actions/upload-artifact@v3
         with:
