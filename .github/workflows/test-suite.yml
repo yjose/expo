@@ -183,7 +183,6 @@ jobs:
         env:
           EXPO_DEBUG: 1
           NODE_ENV: production
-          GRADLE_OPTS: '-Dorg.gradle.internal.http.connectionTimeout=180000 -Dorg.gradle.internal.http.socketTimeout=180000 -Dorg.gradle.internal.network.retry.max.attempts=18 -Dorg.gradle.internal.network.retry.initial.backOff=2000'
       - name: 📸 Upload builds
         uses: actions/upload-artifact@v3
         with:
