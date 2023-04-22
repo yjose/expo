@@ -177,7 +177,7 @@ jobs:
       - name: 🛠️ Generate dynamic macros
         run: expotools android-generate-dynamic-macros --configuration release --bare
       - name: 🏗️ Build Android project
-        run: ./gradlew -DtestBuildType=release :app:assembleRelease :app:assembleAndroidTest
+        run: ./gradlew -DtestBuildType=release :app:assembleRelease :app:assembleAndroidTest --no-daemon
         working-directory: apps/bare-expo/android
         timeout-minutes: 35
         env:
