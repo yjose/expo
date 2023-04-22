@@ -188,9 +188,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: bare-expo-android-builds
-          path: |
-            apps/bare-expo/android/app/build/outputs/apk/release/app-release.apk
-            apps/bare-expo/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk
+          path: apps/bare-expo/android/app/build/outputs/apk
   
   android-test:
     needs: android-build
@@ -206,6 +204,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: bare-expo-android-builds
+          path: apps/bare-expo/android/app/build/outputs/apk
 
       - name: 🧪 Run tests
         uses: ./.github/actions/use-android-emulator
