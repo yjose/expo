@@ -139,59 +139,59 @@ jobs:
   #         fields: job,message,ref,eventName,author,took
   #         author_name: Test Suite (iOS)
   # 
-  # android-build:
-  #   runs-on: ubuntu-20.04
-  #   env:
-  #     ORG_GRADLE_PROJECT_reactNativeArchitectures: x86_64
-  #     GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m
-  #   steps:
-  #     - name: 👀 Checkout
-  #       uses: actions/checkout@v3
-  #       with:
-  #         submodules: true
-  #     - name: ⬢ Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #     - name: 🔨 Use JDK 11
-  #       uses: actions/setup-java@v3
-  #       with:
-  #         distribution: 'temurin'
-  #         java-version: '11'
-  #     - name: ➕ Add `bin` to GITHUB_PATH
-  #       run: echo "$(pwd)/bin" >> $GITHUB_PATH
-  #     - name: ♻️ Restore caches
-  #       uses: ./.github/actions/expo-caches
-  #       id: expo-caches
-  #       with:
-  #         gradle: 'true'
-  #         yarn-workspace: 'true'
-  #         yarn-tools: 'true'
-  #         react-native-gradle-downloads: 'true'
-  #     - name: 🧶 Install workspace node modules
-  #       if: steps.expo-caches.outputs.yarn-workspace-hit != 'true'
-  #       run: yarn install --frozen-lockfile
-  #     - name: ⚛️ Display React Native config
-  #       run: yarn react-native config
-  #       working-directory: apps/bare-expo
-  #     - name: 🛠️ Generate dynamic macros
-  #       run: expotools android-generate-dynamic-macros --configuration release --bare
-  #     - name: 🏗️ Build Android project
-  #       run: ./gradlew -DtestBuildType=release :app:assembleRelease :app:assembleAndroidTest
-  #       working-directory: apps/bare-expo/android
-  #       timeout-minutes: 35
-  #       env:
-  #         EXPO_DEBUG: 1
-  #         NODE_ENV: production
-  #         GRADLE_OPTS: '-Dorg.gradle.internal.http.connectionTimeout=180000 -Dorg.gradle.internal.http.socketTimeout=180000 -Dorg.gradle.internal.network.retry.max.attempts=18 -Dorg.gradle.internal.network.retry.initial.backOff=2000'
-  #     - name: 📸 Upload builds
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: bare-expo-android-builds
-  #         path: |
-  #           apps/bare-expo/android/app/build/outputs/apk/release/app-release.apk
-  #           apps/bare-expo/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk
-  # 
+  android-build:
+    runs-on: ubuntu-20.04
+    env:
+      ORG_GRADLE_PROJECT_reactNativeArchitectures: x86_64
+      GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m
+    steps:
+      - name: 👀 Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: ⬢ Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: 🔨 Use JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - name: ➕ Add `bin` to GITHUB_PATH
+        run: echo "$(pwd)/bin" >> $GITHUB_PATH
+      - name: ♻️ Restore caches
+        uses: ./.github/actions/expo-caches
+        id: expo-caches
+        with:
+          gradle: 'true'
+          yarn-workspace: 'true'
+          yarn-tools: 'true'
+          react-native-gradle-downloads: 'true'
+      - name: 🧶 Install workspace node modules
+        if: steps.expo-caches.outputs.yarn-workspace-hit != 'true'
+        run: yarn install --frozen-lockfile
+      - name: ⚛️ Display React Native config
+        run: yarn react-native config
+        working-directory: apps/bare-expo
+      - name: 🛠️ Generate dynamic macros
+        run: expotools android-generate-dynamic-macros --configuration release --bare
+      - name: 🏗️ Build Android project
+        run: ./gradlew -DtestBuildType=release :app:assembleRelease :app:assembleAndroidTest
+        working-directory: apps/bare-expo/android
+        timeout-minutes: 35
+        env:
+          EXPO_DEBUG: 1
+          NODE_ENV: production
+          GRADLE_OPTS: '-Dorg.gradle.internal.http.connectionTimeout=180000 -Dorg.gradle.internal.http.socketTimeout=180000 -Dorg.gradle.internal.network.retry.max.attempts=18 -Dorg.gradle.internal.network.retry.initial.backOff=2000'
+      - name: 📸 Upload builds
+        uses: actions/upload-artifact@v3
+        with:
+          name: bare-expo-android-builds
+          path: |
+            apps/bare-expo/android/app/build/outputs/apk/release/app-release.apk
+            apps/bare-expo/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk
+  
   android-test:
     needs: android-build
     runs-on: macos-12
