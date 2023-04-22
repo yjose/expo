@@ -143,7 +143,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       ORG_GRADLE_PROJECT_reactNativeArchitectures: x86_64
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:MaxMetaspaceSize=2g -Dkotlin.daemon.jvm.options=-Xmx1500m"
+      GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx512m -XX:MaxMetaspaceSize=256m
     steps:
       - name: 👀 Checkout
         uses: actions/checkout@v3
