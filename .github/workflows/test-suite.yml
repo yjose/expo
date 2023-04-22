@@ -211,6 +211,9 @@ jobs:
           avd-api: ${{ matrix.api-level }}
           avd-name: avd-${{ matrix.api-level }}
           script: |
+            sleep 10
+            adb shell settings put secure immersive_mode_confirmations confirmed
+            sleep 10
             mkdir artifacts
             adb logcat -d > artifacts/emulator.log
             adb logcat -c || true
