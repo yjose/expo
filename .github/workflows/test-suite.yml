@@ -20,9 +20,9 @@ on:
       # Ignore Expo CLI for now...
       - '!packages/@expo/cli/**'
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+#   cancel-in-progress: true
 
 jobs:
   # web:
@@ -143,7 +143,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       ORG_GRADLE_PROJECT_reactNativeArchitectures: x86_64
-      GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx2048m -Xms512m -XX:MaxMetaspaceSize=1024m -XX:+HeapDumpOnOutOfMemoryError
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=2g -Dkotlin.daemon.jvm.options=-Xmx1500m"
     steps:
       - name: 👀 Checkout
         uses: actions/checkout@v3
