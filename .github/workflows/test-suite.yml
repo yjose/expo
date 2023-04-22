@@ -214,7 +214,9 @@ jobs:
             mkdir artifacts
             adb logcat -d > artifacts/emulator.log
             adb logcat -c || true
+            adb shell screencap -p /data/local/tmp/bareexpo.png && adb pull /data/local/tmp/bareexpo.png artifacts/beforeTests.png
             ./scripts/start-android-e2e-test.sh
+            adb shell screencap -p /data/local/tmp/bareexpo.png && adb pull /data/local/tmp/bareexpo.png artifacts/afterTests.png
             adb logcat -d > artifacts/adb.log
           working-directory: ./apps/bare-expo
       - name: 📸 Store images of test failures
