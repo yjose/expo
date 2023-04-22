@@ -164,7 +164,7 @@ jobs:
         uses: ./.github/actions/expo-caches
         id: expo-caches
         with:
-          gradle: 'true'
+          # gradle: 'true'
           yarn-workspace: 'true'
           yarn-tools: 'true'
           react-native-gradle-downloads: 'true'
