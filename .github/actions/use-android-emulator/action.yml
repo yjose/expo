@@ -55,23 +55,20 @@ runs:
       if: inputs.script != ''
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        # api-level: ${{ inputs.avd-api }}
-        api-level: 31
-        channel: canary
+        api-level: ${{ inputs.avd-api }}
         avd-name: ${{ inputs.avd-name }}
         arch: x86_64
-        # target: google_apis
-        # target: aosp_atd
-        emulator-build: 9536276
+        target: google_apis
+        # emulator-build: 9536276
         # force-avd-creation: false
         # emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -cores 3
         emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
         emulator-boot-timeout: 900
         # disable-animations: false
-        # profile: pixel_6
+        profile: pixel_6
         # cores: 3
-        # ram-size: 8192MB
-        # disk-size: 8192MB
-        # heap-size: 2048MB
+        ram-size: 8192MB
+        disk-size: 8192MB
+        heap-size: 2048MB
         script: ${{ inputs.script }}
         working-directory: ${{ inputs.working-directory }}
