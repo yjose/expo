@@ -62,6 +62,12 @@ runs:
         emulator-build: 9536276
         # force-avd-creation: false
         emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
+        emulator-boot-timeout: 900
         # disable-animations: false
+        profile: pixel_6
+        cores: 3
+        ram-size: 8192MB
+        disk-size: 8192MB
+        heap-size: 2048MB
         script: ${{ inputs.script }}
         working-directory: ${{ inputs.working-directory }}
