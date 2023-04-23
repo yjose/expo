@@ -63,9 +63,5 @@ runs:
         # force-avd-creation: false
         emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
         # disable-animations: false
-        profile: pixel_5
-        cores: 2
-        ram-size: 4096MB
-        disk-size: 8192MB
         script: ${{ inputs.script }}
         working-directory: ${{ inputs.working-directory }}
