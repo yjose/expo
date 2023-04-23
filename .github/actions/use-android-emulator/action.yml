@@ -61,7 +61,7 @@ runs:
         avd-name: ${{ inputs.avd-name }}
         arch: x86_64
         # target: google_apis
-        target: aosp_atd
+        # target: aosp_atd
         emulator-build: 9536276
         # force-avd-creation: false
         # emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -cores 3
