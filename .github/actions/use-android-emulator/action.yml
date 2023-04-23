@@ -61,7 +61,7 @@ runs:
         target: google_apis
         emulator-build: 9536276
         # force-avd-creation: false
-        emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
+        emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -cores 3
         emulator-boot-timeout: 900
         # disable-animations: false
         profile: pixel_6
