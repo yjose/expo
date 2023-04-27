@@ -41,3 +41,7 @@ fi
 
 pushd $ROOT_DIR/tools
 yarn
+
+if [ "$EAS_BUILD_PROFILE" = "release-client" ] && [ "$EAS_BUILD_PLATFORM" = "ios" ]; then
+  et remove-background-permissions-from-info-plists
+fi

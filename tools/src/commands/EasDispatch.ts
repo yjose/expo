@@ -172,6 +172,7 @@ async function androidBuildAndSubmitAsync() {
     'android-keystore-alias.password'
   );
 
+  logger.info('Preparing credentials');
   try {
     await spawnAsync(
       'gsutil',
@@ -200,6 +201,9 @@ async function androidBuildAndSubmitAsync() {
     }
     throw err;
   }
+  logger.info('Validating changelog');
+  await validateChangelogAsync();
+
   await spawnAsync(
     'eas',
     ['build', '--platform', 'android', '--profile', RELEASE_BUILD_PROFILE, '--auto-submit'],
@@ -226,4 +230,40 @@ async function androidBuildAndSubmitAsync() {
       },
     }
   );
+}
+
+async function validateChangelogAsync() {
+  const projectDir = path.join(EXPO_DIR, 'apps/eas-expo-go');
+  const spawnResult = await spawnAsync(
+    'eas',
+    [
+      'build:version:get',
+      '--platform',
+      'android',
+      '--profile',
+      RELEASE_BUILD_PROFILE,
+      '--json',
+      '--non-interactive',
+    ],
+    {
+      cwd: projectDir,
+      stdio: 'pipe',
+      env: {
+        ...process.env,
+        EAS_DANGEROUS_OVERRIDE_ANDROID_APPLICATION_ID: 'host.exp.exponent',
+      },
+    }
+  );
+  const { versionCode: versionCodeString } = JSON.parse(spawnResult.stdout);
+  assert(versionCodeString, 'versionCode is not defined on EAS servers.');
+  const versionCode = Number(versionCodeString);
+  const expectedChangelogPath = path.join(
+    EXPO_DIR,
+    `fastlane/android/metadata/en-US/changelogs/${versionCode + 1}.txt`
+  );
+  if (!(await fs.pathExists(expectedChangelogPath))) {
+    throw new Error(
+      `Missing changelog at ${`fastlane/android/metadata/en-US/changelogs/${versionCode + 1}.txt`}`
+    );
+  }
 }
