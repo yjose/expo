@@ -210,7 +210,7 @@ export interface ImageProps extends ViewProps {
     /**
      * The text that's read by the screen reader when the user interacts with the image.
      * Sets the `alt` tag on web which is used for web crawlers and link traversal.
-     * Is an alias for [`accessibilityLabel`](#accessibilityLabel).
+     * Is an alias for [`accessibilityLabel`](#accessibilitylabel).
      * @alias accessibilityLabel
      */
     alt?: string;
