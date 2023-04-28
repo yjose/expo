@@ -68,6 +68,19 @@ export interface ImageProps extends ViewProps {
      * Determines how the image should be resized to fit its container. This property tells the image to fill the container
      * in a variety of ways; such as "preserve that aspect ratio" or "stretch up and take up as much space as possible".
      * It mirrors the CSS [`object-fit`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) property.
+     *
+     * - `'cover'` - The image is sized to maintain its aspect ratio while filling the container box.
+     * If the image's aspect ratio does not match the aspect ratio of its box, then the object will be clipped to fit.
+     *
+     * - `'contain'` - The image is scaled down or up to maintain its aspect ratio while fitting within the container box.
+     *
+     * - `'fill'` - The image is sized to entirely fill the container box. If necessary, the image will be stretched or squished to fit.
+     *
+     * - `'none'` - The image is not resized and is centered by default.
+     * When specified, the exact position can be controlled with [`contentPosition`](#contentposition) prop.
+     *
+     * - `'scale-down'` - The image is sized as if `none` or `contain` were specified, whichever would result in a smaller concrete image size.
+     *
      * @default 'cover'
      */
     contentFit?: ImageContentFit;
@@ -112,11 +125,16 @@ export interface ImageProps extends ViewProps {
     priority?: 'low' | 'normal' | 'high' | null;
     /**
      * Determines whether to cache the image and where: on the disk, in the memory or both.
+     *
      * - `'none'` - Image is not cached at all.
+     *
      * - `'disk'` - Image is queried from the disk cache if exists, otherwise it's downloaded and then stored on the disk.
+     *
      * - `'memory'` - Image is cached in memory. Might be useful when you render a high-resolution picture many times.
      *   Memory cache may be purged very quickly to prevent high memory usage and the risk of out of memory exceptions.
+     *   .
      * - `'memory-disk'` - Image is cached in memory, but with a fallback to the disk cache.
+     *
      * @default 'disk'
      */
     cachePolicy?: 'none' | 'disk' | 'memory' | 'memory-disk' | /** @hidden */ null;
