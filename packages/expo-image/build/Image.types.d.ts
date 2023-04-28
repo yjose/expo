@@ -13,20 +13,19 @@ export type ImageSource = {
     headers?: Record<string, string>;
     /**
      * Can be specified if known at build time, in which case the value
-     * will be used to set the default `<Image/>` component dimension.
-     * @default 16
+     * will be used to set the default `<Image/>` component width.
      */
     width?: number;
     /**
      * Can be specified if known at build time, in which case the value
-     * will be used to set the default `<Image/>` component dimension.
-     * @default 16
+     * will be used to set the default `<Image/>` component height.
      */
     height?: number;
     /**
      * The BlurHash string to use to generate the image. You can read more about the BlurHash
      * on [`woltapp/blurhash`](https://github.com/woltapp/blurhash) repo. Ignored when `uri` is provided.
-     * When using the BlurHash, you should also provide `width` and `height` (higher values reduce performance).
+     * When using the BlurHash, you should also provide `width` and `height` (higher values reduce performance),
+     * otherwise their default value is `16`.
      */
     blurhash?: string;
     /**
@@ -36,7 +35,7 @@ export type ImageSource = {
     thumbhash?: string;
     /**
      * The cache key used to query and store this specific image.
-     * If not provided, the `uri` is used also as the cache key.
+     * If not provided, the `uri` is used as the cache key.
      */
     cacheKey?: string;
 };
@@ -46,13 +45,7 @@ export type ImageSource = {
 export type ImageStyle = RNImageStyle;
 /**
  * Determines how the image should be resized to fit its container.
- * - `'cover'` - The image is sized to maintain its aspect ratio while filling the container box.
- * If the image's aspect ratio does not match the aspect ratio of its box, then the object will be clipped to fit.
- * - `'contain'` - The image is scaled down or up to maintain its aspect ratio while fitting within the container box.
- * - `'fill'` - The image is sized to entirely fill the container box. If necessary, the image will be stretched or squished to fit.
- * - `'none'` - The image is not resized and is centered by default.
- * When specified, the exact position can be controlled with [`contentPosition`](#contentposition) prop.
- * - `'scale-down'` - The image is sized as if `none` or `contain` were specified, whichever would result in a smaller concrete image size.
+ * @hidden Described in the {@link ImageProps['contentFit']}
  */
 export type ImageContentFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 /**
@@ -126,7 +119,7 @@ export interface ImageProps extends ViewProps {
      * - `'memory-disk'` - Image is cached in memory, but with a fallback to the disk cache.
      * @default 'disk'
      */
-    cachePolicy?: 'none' | 'disk' | 'memory' | 'memory-disk' | null;
+    cachePolicy?: 'none' | 'disk' | 'memory' | 'memory-disk' | /** @hidden */ null;
     /**
      * Determines whether to choose image source based on container size only on mount or on every resize.
      * Use `initial` to improve performance.
@@ -255,10 +248,11 @@ export type ImageContentPositionValue = number | string | `${number}%` | `${numb
 /**
  * Specifies the position of the image inside its container. One value controls the X axis and the second value controls the Y axis.
  *
- * Additionally, it supports stringified shorthand form that specifies the edges to which to align the image content,
- * which possible values are represented by [`ImageContentPositionString`](#imagecontentpositionstring) string union.
+ * Additionally, it supports stringified shorthand form that specifies the edges to which to align the image content:\
+ * `'center'`, `'top'`, `'right'`, `'bottom'`, `'left'`, `'top center'`, `'top right'`, `'top left'`, `'right center'`, `'right top'`,
+ * `'right bottom'`, `'bottom center'`, `'bottom right'`, `'bottom left'`, `'left center'`, `'left top'`, `'left bottom'`.\
+ * If only one keyword is provided, then the other dimension is set to `'center'` (`'50%'`), so the image is placed in the middle of the specified edge.\
  *
- * If only one keyword is provided, then the other dimension is set to `'center'` (`'50%'`), so the image is placed in the middle of the specified edge.
  * As an example, `'top right'` is the same as `{ top: 0, right: 0 }` and `'bottom'` is the same as `{ bottom: 0, left: '50%' }`.
  */
 export type ImageContentPosition = /**
@@ -283,7 +277,7 @@ export type ImageContentPosition = /**
     left?: ImageContentPositionValue;
 } | ImageContentPositionString;
 /**
- * Type representing the shorthand forms of image content alignment listing the available edges to which it should align.
+ * @hidden It's described as part of {@link ImageContentPosition}.
  */
 export type ImageContentPositionString = 'center' | 'top' | 'right' | 'bottom' | 'left' | 'top center' | 'top right' | 'top left' | 'right center' | 'right top' | 'right bottom' | 'bottom center' | 'bottom right' | 'bottom left' | 'left center' | 'left top' | 'left bottom';
 type OnlyObject<T> = T extends object ? T : never;
