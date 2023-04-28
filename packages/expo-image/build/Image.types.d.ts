@@ -53,6 +53,7 @@ export type ImageContentFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-dow
  * but all of them are deprecated and might be removed in the future.
  */
 export interface ImageProps extends ViewProps {
+    /** @hidden */
     style?: RNImageStyle | RNImageStyle[];
     /**
      * The image source, either a remote URL, a local file resource or a number that is the result of the `require()` function.
@@ -215,7 +216,6 @@ export interface ImageProps extends ViewProps {
     accessible?: boolean;
     /**
      * The text that's read by the screen reader when the user interacts with the image. Sets the `alt` tag on web which is used for web crawlers and link traversal.
-     * @default undefined
      */
     accessibilityLabel?: string;
     /**
@@ -266,10 +266,10 @@ export type ImageContentPositionValue = number | string | `${number}%` | `${numb
 /**
  * Specifies the position of the image inside its container. One value controls the X axis and the second value controls the Y axis.
  *
- * Additionally, it supports stringified shorthand form that specifies the edges to which to align the image content:\
+ * Additionally, it supports string shorthand form that specifies the edges to which to align the image content:\
  * `'center'`, `'top'`, `'right'`, `'bottom'`, `'left'`, `'top center'`, `'top right'`, `'top left'`, `'right center'`, `'right top'`,
  * `'right bottom'`, `'bottom center'`, `'bottom right'`, `'bottom left'`, `'left center'`, `'left top'`, `'left bottom'`.\
- * If only one keyword is provided, then the other dimension is set to `'center'` (`'50%'`), so the image is placed in the middle of the specified edge.\
+ * If only one keyword is provided, then the other dimension is set to `'center'` (`'50%'`), so the image is placed in the middle of the specified edge.
  *
  * As an example, `'top right'` is the same as `{ top: 0, right: 0 }` and `'bottom'` is the same as `{ bottom: 0, left: '50%' }`.
  */
