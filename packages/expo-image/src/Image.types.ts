@@ -150,7 +150,7 @@ export interface ImageProps extends ViewProps {
    *
    * - `'memory'` - Image is cached in memory. Might be useful when you render a high-resolution picture many times.
    *   Memory cache may be purged very quickly to prevent high memory usage and the risk of out of memory exceptions.
-   *   .
+   *
    * - `'memory-disk'` - Image is cached in memory, but with a fallback to the disk cache.
    *
    * @default 'disk'
