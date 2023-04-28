@@ -67,9 +67,10 @@ public final class ModuleDefinition: ObjectDefinition {
 
   public override func build(appContext: AppContext) throws -> JavaScriptObject {
     let object = try super.build(appContext: appContext)
+    let runtime = try appContext.runtime
 
     if let viewManager {
-      let reactComponentPrototype = try appContext.runtime.createObject()
+      let reactComponentPrototype = runtime.createObject()
       try viewManager.decorateWithFunctions(object: reactComponentPrototype, appContext: appContext)
       object.setProperty("ViewPrototype", value: reactComponentPrototype)
     }
@@ -77,6 +78,9 @@ public final class ModuleDefinition: ObjectDefinition {
     // Give the module object a name. It's used for compatibility reasons, see `EventEmitter.ts`.
     object.defineProperty("__expo_module_name__", value: name, options: [])
 
+    if !eventNames.isEmpty {
+      EXJavaScriptRuntimeManager.decorateEventEmitter(object, in: runtime)
+    }
     return object
   }
 }

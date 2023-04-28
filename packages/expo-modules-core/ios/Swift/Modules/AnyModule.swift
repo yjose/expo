@@ -3,6 +3,18 @@
  */
 public protocol AnyModule: AnyObject, AnyArgument {
   /**
+   Weak reference to a JavaScript object representing this module.
+   Unavailable when the remote debugger is enabled or when the module was not loaded yet.
+   */
+  var javaScriptWeakObject: JavaScriptWeakObject? { get set }
+
+  /**
+   A JavaScript object representing this module. It may throw when its weak reference (`javaScriptWeakObject`) was already garbage-collected
+   Unavailable when the remote debugger is enabled or when the module was not loaded yet.
+   */
+  var javaScriptObject: JavaScriptObject { get throws }
+
+  /**
    The default initializer. Must be public, but the module class does *not* need to
    define it as it is implemented in protocol composition, see `BaseModule` class.
    */

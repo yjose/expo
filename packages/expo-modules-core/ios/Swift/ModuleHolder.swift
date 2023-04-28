@@ -107,7 +107,11 @@ public final class ModuleHolder {
     }
     do {
       log.info("Creating JS object for module '\(name)'")
-      return try definition.build(appContext: appContext)
+
+      let javaScriptObject = try definition.build(appContext: appContext)
+      module.javaScriptWeakObject = javaScriptObject.createWeak()
+
+      return javaScriptObject
     } catch {
       log.error("Building the module object failed: \(error)")
       return nil
